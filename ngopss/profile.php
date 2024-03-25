@@ -188,6 +188,14 @@ session_start();
                     <p><?php echo $result['payment_status'] ?></p>
                 </div>
          </div>
+         <div class="input-container ">    
+            <div class="input-line o-3 mb-0">
+                <p>Order status</p>
+            </div>
+            <div class="input-line txt-r mb-0 totalp">
+                    <p class="status"><?php echo $result['status'] ?></p>
+                </div>
+         </div>
          </div>
          <?php endforeach; ?>
 </div>

@@ -10,12 +10,21 @@ if(!isset($admin_id)){
    header('location:login.php');
 }
 
-if(isset($_POST['update_order'])){
+if(isset($_POST['update_pay'])){
 
    $order_update_id = $_POST['order_id'];
    $update_payment = $_POST['update_payment'];
    mysqli_query($conn, "UPDATE `orders` SET payment_status = '$update_payment' WHERE id = '$order_update_id'") or die('query failed');
    $message[] = 'payment status has been updated!';
+
+}
+
+if(isset($_POST['update_status'])){
+
+   $order_update_id = $_POST['order_id'];
+   $update_status = $_POST['update_status'];
+   mysqli_query($conn, "UPDATE `orders` SET status = '$update_status' WHERE id = '$order_update_id'") or die('query failed');
+   $message[] = 'Order status has been updated!';
 
 }
 
@@ -141,12 +150,13 @@ option[disabled] {
                <th>Delivery</th>
                <th>Payment Method</th>
                <th>Payment Status</th>
+               <th>Current Status</th>
                <th>Action</th>
             </tr>
          </thead>
          <tbody>
             <?php
-            $select_orders = mysqli_query($conn, "SELECT * FROM `orders`") or die('query failed');
+            $select_orders = mysqli_query($conn, "SELECT * FROM `orders` ORDER BY id DESC") or die('query failed');
             if(mysqli_num_rows($select_orders) > 0){
                while($fetch_orders = mysqli_fetch_assoc($select_orders)){
             ?>
@@ -162,15 +172,26 @@ option[disabled] {
                <td><?php echo $fetch_orders['delivery']; ?></td>
                <td><?php echo $fetch_orders['method']; ?></td>
                <td><?php echo $fetch_orders['payment_status']; ?></td>
+               <td><?php echo $fetch_orders['status']; ?></td>
                <td>
                   <form action="" method="post">
                      <input type="hidden" name="order_id" value="<?php echo $fetch_orders['id']; ?>">
                      <select name="update_payment">
-                        <option value="" selected disabled>Update Status</option>
+                        <option value="" selected disabled>Update payment</option>
                         <option value="pending">Pending</option>
                         <option value="completed">Completed</option>
                      </select>
-                     <input type="submit" value="Update" name="update_order" class="option-btn">
+                     <input type="submit" value="Update" name="update_pay" class="option-btn">
+                  </form>
+                  <form action="" method="post">
+                     <input type="hidden" name="order_id" value="<?php echo $fetch_orders['id']; ?>">
+                     <select name="update_status">
+                        <option value="" selected disabled>Update status</option>
+                        <option value="Brewing">Brewing</option>
+                        <option value="In Delivery">In Delivery</option>
+                        <option value="Complete">Completed</option>
+                     </select>
+                     <input type="submit" value="Update" name="update_stat" class="option-btn">
                   </form>
                   <a href="admin_orders.php?delete=<?php echo $fetch_orders['id']; ?>" onclick="return confirm('Delete this order?');" class="delete-btn">Delete</a>
                </td>

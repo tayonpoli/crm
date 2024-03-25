@@ -255,12 +255,23 @@ nav {
 .orders__card {
   padding: 2rem;
   width: 400px;
+  height: fit-content;
   text-align: center;
   border-radius: 2rem;
   border: 1px solid;
   border-color: #0000004D;
   transition: 0.3s;
 }
+
+.orders__card .status{
+  background-color: var(--sage);
+  border: 1px solid;
+  border-radius: 1rem;
+  color: var(--white);
+  padding: 0.5rem;
+  font-size: 13px;
+}
+
 
 .orders__card:hover {
   box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1);
