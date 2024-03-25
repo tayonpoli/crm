@@ -138,6 +138,7 @@ option[disabled] {
                <th>Address</th>
                <th>Total Products</th>
                <th>Total Price</th>
+               <th>Delivery</th>
                <th>Payment Method</th>
                <th>Payment Status</th>
                <th>Action</th>
@@ -157,7 +158,8 @@ option[disabled] {
                <td><?php echo $fetch_orders['email']; ?></td>
                <td><?php echo $fetch_orders['address']; ?></td>
                <td><?php echo $fetch_orders['total_products']; ?></td>
-               <td><?php echo '$'.$fetch_orders['total_price']; ?>/-</td>
+               <td>Rp. <?php echo number_format($fetch_orders['total_price']); ?></td>
+               <td><?php echo $fetch_orders['delivery']; ?></td>
                <td><?php echo $fetch_orders['method']; ?></td>
                <td><?php echo $fetch_orders['payment_status']; ?></td>
                <td>

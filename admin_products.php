@@ -1,3 +1,4 @@
+admin_products.php
 <?php
 
 include 'config.php';
@@ -13,18 +14,21 @@ if(!isset($admin_id)){
 if(isset($_POST['add_product'])){
 
    $name = mysqli_real_escape_string($conn, $_POST['name']);
+   $type = mysqli_real_escape_string($conn, $_POST['type']);
    $price = $_POST['price'];
    $image = $_FILES['image']['name'];
    $image_size = $_FILES['image']['size'];
+   $event = mysqli_real_escape_string($conn, $_POST['event']);
+   $discount = $_POST['discount'];
    $image_tmp_name = $_FILES['image']['tmp_name'];
-   $image_folder = 'uploaded_img/'.$image;
+   $image_folder = 'ngopss/upload/'.$image;
 
    $select_product_name = mysqli_query($conn, "SELECT name FROM `products` WHERE name = '$name'") or die('query failed');
 
    if(mysqli_num_rows($select_product_name) > 0){
       $message[] = 'product name already added';
    }else{
-      $add_product_query = mysqli_query($conn, "INSERT INTO `products`(name, price, image) VALUES('$name', '$price', '$image')") or die('query failed');
+      $add_product_query = mysqli_query($conn, "INSERT INTO `products`(name, type, price, image, event, discount) VALUES('$name', '$type', '$price', '$image', '$event', '$discount')") or die('query failed');
 
       if($add_product_query){
          if($image_size > 2000000){
@@ -38,7 +42,7 @@ if(isset($_POST['add_product'])){
       }
    }
    // Check if directory exists, if not, create it
-$upload_directory = 'uploaded_img/';
+$upload_directory = 'ngopss/upload/';
 if (!file_exists($upload_directory)) {
     mkdir($upload_directory, 0777, true);
 }
@@ -47,11 +51,7 @@ if (!file_exists($upload_directory)) {
 $image_folder = $upload_directory . $image;
 
 // Move uploaded file to the destination directory
-if (move_uploaded_file($image_tmp_name, $image_folder)) {
-    $message[] = 'product added successfully!';
-} else {
-    $message[] = 'Failed to move uploaded file.';
-}
+
 
 }
 
@@ -59,7 +59,7 @@ if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
    $delete_image_query = mysqli_query($conn, "SELECT image FROM `products` WHERE id = '$delete_id'") or die('query failed');
    $fetch_delete_image = mysqli_fetch_assoc($delete_image_query);
-   unlink('uploaded_img/'.$fetch_delete_image['image']);
+   unlink('ngopss/upload/'.$fetch_delete_image['image']);
    mysqli_query($conn, "DELETE FROM `products` WHERE id = '$delete_id'") or die('query failed');
    header('location:admin_products.php');
 }
@@ -75,7 +75,7 @@ if(isset($_POST['update_product'])){
    $update_image = $_FILES['update_image']['name'];
    $update_image_tmp_name = $_FILES['update_image']['tmp_name'];
    $update_image_size = $_FILES['update_image']['size'];
-   $update_folder = 'uploaded_img/'.$update_image;
+   $update_folder = 'ngopss/upload/'.$update_image;
    $update_old_image = $_POST['update_old_image'];
 
    if(!empty($update_image)){
@@ -84,7 +84,7 @@ if(isset($_POST['update_product'])){
       }else{
          mysqli_query($conn, "UPDATE `products` SET image = '$update_image' WHERE id = '$update_p_id'") or die('query failed');
          move_uploaded_file($update_image_tmp_name, $update_folder);
-         unlink('uploaded_img/'.$update_old_image);
+         unlink('ngopss/upload/'.$update_old_image);
       }
    }
 
@@ -122,7 +122,10 @@ if(isset($_POST['update_product'])){
    <form action="" method="post" enctype="multipart/form-data">
       <h3>add product</h3>
       <input type="text" name="name" class="box" placeholder="enter product name" required>
+      <input type="text" name="type" class="box" placeholder="enter product type" required>
       <input type="number" min="0" name="price" class="box" placeholder="enter product price" required>
+      <input type="number" min="0" name="discount" class="box" placeholder="enter offer price before (optional)">
+      <input type="text" name="event" class="box" placeholder="enter event name (optional)">
       <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box" required>
       <input type="submit" value="add product" name="add_product" class="btn">
    </form>
@@ -143,9 +146,10 @@ if(isset($_POST['update_product'])){
             while($fetch_products = mysqli_fetch_assoc($select_products)){
       ?>
       <div class="box">
-         <img src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
+         <img src="ngopss/upload/<?php echo $fetch_products['image']; ?>" alt="">
          <div class="name"><?php echo $fetch_products['name']; ?></div>
-         <div class="price">$<?php echo $fetch_products['price']; ?>/-</div>
+         <div class="type"><?php echo $fetch_products['type']; ?></div>
+         <div class="price">Rp. <?php echo number_format($fetch_products['price']); ?></div>
          <a href="admin_products.php?update=<?php echo $fetch_products['id']; ?>" class="option-btn">update</a>
          <a href="admin_products.php?delete=<?php echo $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('delete this product?');">delete</a>
       </div>
@@ -171,7 +175,7 @@ if(isset($_POST['update_product'])){
    <form action="" method="post" enctype="multipart/form-data">
       <input type="hidden" name="update_p_id" value="<?php echo $fetch_update['id']; ?>">
       <input type="hidden" name="update_old_image" value="<?php echo $fetch_update['image']; ?>">
-      <img src="uploaded_img/<?php echo $fetch_update['image']; ?>" alt="">
+      <img src="ngopss/upload/<?php echo $fetch_update['image']; ?>" alt="">
       <input type="text" name="update_name" value="<?php echo $fetch_update['name']; ?>" class="box" required placeholder="enter product name">
       <input type="number" name="update_price" value="<?php echo $fetch_update['price']; ?>" min="0" class="box" required placeholder="enter product price">
       <input type="file" class="box" name="update_image" accept="image/jpg, image/jpeg, image/png">
