@@ -16,6 +16,15 @@ if(isset($_POST['update_pay'])){
    $update_payment = $_POST['update_payment'];
    mysqli_query($conn, "UPDATE `orders` SET payment_status = '$update_payment' WHERE id = '$order_update_id'") or die('query failed');
    $message[] = 'payment status has been updated!';
+   if($update_payment == "completed"){
+      $order_data = mysqli_query($conn, "SELECT * FROM `orders` WHERE id = '$order_update_id'") or die('query failed');
+      $fetch_order = mysqli_fetch_assoc($order_data); 
+     $check_query = mysqli_query($conn, "SELECT * FROM `revenue` WHERE order_id = '$order_update_id'") or die('query failed');
+     if(mysqli_num_rows($check_query) == 0) { // Check if order already exists in revenue table
+       $insert_query = mysqli_query($conn, "INSERT INTO `revenue` (order_id, payment_status, order_placed, name, number, email, address, total_products, total_price, payment_method) VALUES ('$order_update_id', 'paid', '".$fetch_order['placed_on']."', '".$fetch_order['name']."', '".$fetch_order['number']."', '".$fetch_order['email']."', '".$fetch_order['address']."', '".$fetch_order['total_products']."', '".$fetch_order['total_price']."', '".$fetch_order['method']."')") or die('query failed');
+    
+      }
+   }
 
 }
 
@@ -23,7 +32,7 @@ if(isset($_POST['update_status'])){
 
    $order_update_id = $_POST['order_id'];
    $update_status = $_POST['update_status'];
-   mysqli_query($conn, "UPDATE `orders` SET status = '$update_status' WHERE id = '$order_update_id'") or die('query failed');
+   mysqli_query($conn, "UPDATE `orders` SET shipping_status = '$update_status' WHERE id = '$order_update_id'") or die('query failed');
    $message[] = 'Order status has been updated!';
 
 }
@@ -172,7 +181,7 @@ option[disabled] {
                <td><?php echo $fetch_orders['delivery']; ?></td>
                <td><?php echo $fetch_orders['method']; ?></td>
                <td><?php echo $fetch_orders['payment_status']; ?></td>
-               <td><?php echo $fetch_orders['status']; ?></td>
+               <td><?php echo $fetch_orders['shipping_status']; ?></td>
                <td>
                   <form action="" method="post">
                      <input type="hidden" name="order_id" value="<?php echo $fetch_orders['id']; ?>">
@@ -187,7 +196,7 @@ option[disabled] {
                      <input type="hidden" name="order_id" value="<?php echo $fetch_orders['id']; ?>">
                      <select name="update_status">
                         <option value="" selected disabled>Update status</option>
-                        <option value="Brewing">Brewing</option>
+                        <option value="In Process">In Process</option>
                         <option value="In Delivery">In Delivery</option>
                         <option value="Complete">Completed</option>
                      </select>

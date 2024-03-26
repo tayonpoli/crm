@@ -560,6 +560,21 @@ nav {
   cursor: pointer;
 }
 
+.back__btn {
+  color: var(--text-dark);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  outline: none;
+  white-space: nowrap;
+  font-size: 1rem;
+  border: 1.5px solid;
+  border-color: var(--primary-color);
+
+  border-radius: 50px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
 .banner__container {
   display: grid;
   gap: 1rem;
@@ -1346,4 +1361,7 @@ input[type="button"]:hover{
 
 .mb-2 {
   margin-bottom: 2rem;
+}
+.mb-1 {
+  margin-bottom: 1rem;
 }

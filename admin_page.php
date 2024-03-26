@@ -50,7 +50,7 @@ if(!isset($admin_id)){
                };
             };
          ?>
-         <h3>$<?php echo $total_pendings; ?>/-</h3>
+         <h3>Rp. <?php echo number_format($total_pendings); ?></h3>
          <p>total pendings</p>
       </div>
 
@@ -65,8 +65,8 @@ if(!isset($admin_id)){
                };
             };
          ?>
-         <h3>$<?php echo $total_completed; ?>/-</h3>
-         <p>completed payments</p>
+         <h3>Rp. <?php echo number_format($total_completed); ?></h3>
+         <a href="admin_revenue.php"><p>completed payments</p></a>
       </div>
 
       <div class="box">

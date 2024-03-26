@@ -68,7 +68,7 @@ session_start();
       <div class="prof-container">
     <h2 class="form-title">Profile</h2>
         <div class="checkout-form">
-        <div class="input-container">    
+        <div class="input-container mb-1">    
             <div class="input-line o-3 mb-0">
                 <p>User ID</p>
             </div>
@@ -76,7 +76,7 @@ session_start();
                     <p>#<?php echo $user_id ?></p>
                 </div>
          </div>
-        <div class="input-container">    
+        <div class="input-container mb-1">    
             <div class="input-line o-3 mb-0">
                 <p>Name</p>
             </div>
@@ -103,7 +103,7 @@ session_start();
         <h2 class="orders-title">Orders</h2>
         <div class="orders__grid">
         <?php
-        $query2 = mysqli_query($koneksi, "SELECT * FROM orders where user_id = '$user_id'");
+        $query2 = mysqli_query($koneksi, "SELECT * FROM orders where user_id = '$user_id' ORDER BY id DESC");
         if(mysqli_num_rows($query2) > 0){
         $result = mysqli_fetch_all($query2, MYSQLI_ASSOC);
         
@@ -193,7 +193,7 @@ session_start();
                 <p>Order status</p>
             </div>
             <div class="input-line txt-r mb-0 totalp">
-                    <p class="status"><?php echo $result['status'] ?></p>
+                    <a href="tracking.php?order_id=<?php echo $result['id']; ?>&shipping_status=<?php echo $result['shipping_status']; ?>" class="status">Track Order</a>
                 </div>
          </div>
          </div>
