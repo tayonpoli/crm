@@ -42,7 +42,7 @@ if(!isset($admin_id)){
       <div class="box">
          <?php
             $total_pendings = 0;
-            $select_pending = mysqli_query($conn, "SELECT total_price FROM `orders` WHERE payment_status = 'pending'") or die('query failed');
+            $select_pending = mysqli_query($conn, "SELECT total_price FROM `orders` WHERE payment_status = 'unpaid'") or die('query failed');
             if(mysqli_num_rows($select_pending) > 0){
                while($fetch_pendings = mysqli_fetch_assoc($select_pending)){
                   $total_price = $fetch_pendings['total_price'];
@@ -57,7 +57,7 @@ if(!isset($admin_id)){
       <div class="box">
          <?php
             $total_completed = 0;
-            $select_completed = mysqli_query($conn, "SELECT total_price FROM `orders` WHERE payment_status = 'completed'") or die('query failed');
+            $select_completed = mysqli_query($conn, "SELECT total_price FROM `orders` WHERE payment_status = 'paid'") or die('query failed');
             if(mysqli_num_rows($select_completed) > 0){
                while($fetch_completed = mysqli_fetch_assoc($select_completed)){
                   $total_price = $fetch_completed['total_price'];
@@ -120,7 +120,7 @@ if(!isset($admin_id)){
             $number_of_messages = mysqli_num_rows($select_messages);
          ?>
          <h3><?php echo $number_of_messages; ?></h3>
-         <p>new messages</p>
+         <a href="admin_stock.php"><p>Stock</p></a>
       </div>
 
    </div>

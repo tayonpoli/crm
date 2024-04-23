@@ -17,7 +17,9 @@ session_start();
       foreach ($_SESSION["pesanan"] as $id_menu => $jumlah) : 
         $ambil = mysqli_query($koneksi, "SELECT * FROM products WHERE id='$id_menu'");
         $pecah = $ambil -> fetch_assoc();
+        $stock = $pecah['stock'];
         $subharga = $pecah["price"]*$jumlah;
+        $c_stock = $stock - $jumlah;
         $cart_products[] = $pecah['name'].' ('.$jumlah.') ';
         $totalbelanja+=$subharga; 
         endforeach;
@@ -35,12 +37,14 @@ if(isset($_POST['order_btn'])){
    $delivery = mysqli_real_escape_string($koneksi, $_POST['delivery']);
    $address = mysqli_real_escape_string($koneksi, $_POST['address'].', '. $_POST['city'].', '. $_POST['pcode']);
    $placed_on = date('d-M-Y');
+   
 
    $total_products = implode(', ',$cart_products);
 
          mysqli_query($koneksi, "INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on, delivery) VALUES('$user_id', '$name', '$number', '$email', '$method', '$address', '$total_products', '$total', '$placed_on', '$delivery')") or die('query failed');
-         
-         $id_terbaru = $koneksi->insert_id;
+         foreach ($_SESSION["pesanan"] as $id_menu => $jumlah) : 
+          mysqli_query($koneksi, "UPDATE products SET stock = stock - $jumlah, sold = $jumlah WHERE id='$id_menu'");
+          endforeach;
          // Mengosongkan pesanan
          unset($_SESSION["pesanan"]);
       
