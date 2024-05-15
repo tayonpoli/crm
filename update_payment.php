@@ -25,6 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $updatePaymentQuery = "UPDATE purchase SET payment_date = '$paymentDate' WHERE purchase_id = '$purchaseId'";
         $conn->query($updatePaymentQuery);
 
+        $updateEmployeeQuery = "UPDATE employee SET transaction = transaction + 1 WHERE name = '$pic'";
+        $conn->query($updateEmployeeQuery);
+
         $insertQuery = "INSERT INTO expenditures (date, categories, pic, amount, payment_method, invoice, recipient, description) 
         VALUES ('$paymentDate', 'Raw Material', '$pic', '$amount', '$payment', '$purchaseId', '$vendor', '-')";
         $conn->query($insertQuery);

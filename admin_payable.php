@@ -156,7 +156,7 @@ option[disabled] {
                <th>Supplier Name</th>
                <th>Refference</th>
                <th>Transaction Date</th>
-               <th>Amount</th>
+               <th>Payment Terms</th>
                <th>Aging</th>
                <th>Outstanding</th>
                <th>Payment Method</th>
@@ -175,12 +175,13 @@ option[disabled] {
                <td><?php echo $fetch_orders['vendor']; ?></td>
                <td>PO #<?php echo $fetch_orders['purchase_id']; ?></td>
                <td><?php echo $fetch_orders['date']; ?></td>
-               <td>Rp. <?php echo number_format($fetch_orders['total']); ?></td>
+               <td><?php echo $fetch_orders['terms']; ?> days</td>
                <td><?php $aging = selisih_hari_database_dan_term($fetch_orders['date'], $fetch_orders['terms']); echo $aging; ?> Days</td>
                <td>Rp. <?php echo number_format($fetch_orders['total']); ?></td>
-               <td>-</td>
+               <td><?php echo $fetch_orders['bank']; ?> <?php echo $fetch_orders['account']; ?></td>
                <td>
-                    <form> 
+                    <form>
+                    <a href="detailpo.php?id=<?php echo $fetch_orders['purchase_id'] ?>" class="btn">Detail</a>
                     <a href="admin_payable.php?delete=<?php echo $fetch_orders['purchase_id']; ?>" class="delete-btn" onclick="return confirm('Delete this order?');">Delete</a>
                     </form>
                 </td>

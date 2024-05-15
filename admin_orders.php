@@ -10,6 +10,15 @@ if(!isset($admin_id)){
    header('location:login.php');
 }
 
+if(isset($_POST['update_sale'])){
+
+   $order_update_id = $_POST['order_id'];
+   $update_sales = $_POST['update_sales'];
+   mysqli_query($conn, "UPDATE `orders` SET sales = '$update_sales' WHERE id = '$order_update_id'") or die('query failed');
+   $message[] = 'Salesperson has been updated!';
+
+}
+
 if(isset($_POST['update_pay'])){
 
    $order_update_id = $_POST['order_id'];
@@ -19,6 +28,8 @@ if(isset($_POST['update_pay'])){
    if($update_payment == "paid"){
       $order_data = mysqli_query($conn, "SELECT * FROM `orders` WHERE id = '$order_update_id'") or die('query failed');
       $fetch_order = mysqli_fetch_assoc($order_data); 
+      $sales = $fetch_order['sales'];
+      mysqli_query($conn, "UPDATE `employee` SET transaction = transaction + 1 WHERE name = '$sales'") or die('query failed');
      $check_query = mysqli_query($conn, "SELECT * FROM `revenue` WHERE order_id = '$order_update_id'") or die('query failed');
      if(mysqli_num_rows($check_query) == 0) { // Check if order already exists in revenue table
        $insert_query = mysqli_query($conn, "INSERT INTO `revenue` (order_id, payment_status, order_placed, name, number, email, address, total_products, total_price, payment_method) VALUES ('$order_update_id', 'paid', '".$fetch_order['placed_on']."', '".$fetch_order['name']."', '".$fetch_order['number']."', '".$fetch_order['email']."', '".$fetch_order['address']."', '".$fetch_order['total_products']."', '".$fetch_order['total_price']."', '".$fetch_order['method']."')") or die('query failed');
@@ -157,6 +168,7 @@ option[disabled] {
                <th>Total Products</th>
                <th>Total Price</th>
                <th>Delivery</th>
+               <th>Salesperson</th>
                <th>Payment Method</th>
                <th>Payment Status</th>
                <th>Current Status</th>
@@ -179,10 +191,32 @@ option[disabled] {
                <td><?php echo $fetch_orders['total_products']; ?></td>
                <td>Rp. <?php echo number_format($fetch_orders['total_price']); ?></td>
                <td><?php echo $fetch_orders['delivery']; ?></td>
+               <td><?php echo $fetch_orders['sales']; ?></td>
                <td><?php echo $fetch_orders['method']; ?></td>
                <td><?php echo $fetch_orders['payment_status']; ?></td>
                <td><?php echo $fetch_orders['shipping_status']; ?></td>
                <td>
+                  <?php
+                  $query = "SELECT * FROM employee WHERE department = 'Sales'";
+                  $result = $conn->query($query);
+                  
+                  // Check if employees are found
+                  if ($result && $result->num_rows > 0) { 
+                  ?>
+                  <form action="" method="post">
+                     <input type="hidden" name="order_id" value="<?php echo $fetch_orders['id']; ?>">
+                     <select name="update_sales">
+                           <option value="" selected disabled>Select Salesperson</option>
+                           <?php
+                           // Loop through each employee and generate <option> elements
+                           while ($row = $result->fetch_assoc()) {
+                              echo '<option value="' . $row['name'] . '">' . $row['name'] . '</option>';
+                           }
+                           ?>
+                     </select>
+                     <input type="submit" value="Update" name="update_sale" class="option-btn">
+                  </form>
+                  <?php } ?>
                   <form action="" method="post">
                      <input type="hidden" name="order_id" value="<?php echo $fetch_orders['id']; ?>">
                      <select name="update_payment">

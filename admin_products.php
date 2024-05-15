@@ -1,4 +1,3 @@
-admin_products.php
 <?php
 
 include 'config.php';

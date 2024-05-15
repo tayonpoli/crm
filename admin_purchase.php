@@ -163,6 +163,7 @@ option[disabled] {
                
                <td>
                <a href="detailpo.php?id=<?php echo $fetch_orders['purchase_id'] ?>" class="btn">Detail</a>
+               <a href="editpo.php?id=<?php echo $fetch_orders['purchase_id'] ?>" class="btn">Edit</a>
                <a href="admin_purchase.php?delete=<?php echo $fetch_orders['purchase_id']; ?>" onclick="return confirm('Delete this order?');" class="delete-btn">Delete</a>
                 </td>
 
