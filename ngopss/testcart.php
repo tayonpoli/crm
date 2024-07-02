@@ -72,7 +72,7 @@ if(empty($_SESSION["pesanan"]) OR !isset($_SESSION["pesanan"]))
                 <p class="price">x <?php echo $jumlah; ?></p>
                 <p class="price">Rp. <?php echo number_format($subharga); ?></p>
                
-               <a href="hapus_pesanan.php?id_menu=<?php echo $id_menu ?>"><i style="color: red; font-size:1.3rem" class="ri-delete-bin-5-fill"></i></a>
+               <a href="hapus_pesanan.php?id_menu=<?php echo $id_menu ?>"><i style="color: red; font-size:1.3rem" class="ri-close-circle-fill"></i></a>
               </div>
               <?php $totalbelanja+=$subharga; ?>
               <?php endforeach; 
