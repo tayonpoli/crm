@@ -23,12 +23,7 @@ if(isset($message)){
           <li><a href="admin_page.php"><i class="fas fa-home"></i>Home</a></li>
           <li><a href="admin_products.php"><i class="fa-solid fa-box-archive"></i>Products</a></li>
           <li><a href="admin_orders.php"><i class="fa-solid fa-file-lines"></i>Orders</a></li>
-          <li><a href="admin_purchase.php"><i class="fa-solid fa-file-invoice-dollar"></i>Purchase</a></li>
-          <li><a href="#"><i class="fas fa-stream"></i>Expenditure</a></li>
           <li><a href="employee.php"><i class="fa-solid fa-user-tie"></i>Employee</a></li>
-          <li><a href="#"><i class="fa-solid fa-dolly"></i>Record Goods</a></li>
-          <li><a href="#"><i class="fa-solid fa-file-invoice"></i>Account Payable</a></li>
-          <li><a href="#"><i class="fa-solid fa-file-invoice"></i>Account Receivable</a></li>
           <div class="icons">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>

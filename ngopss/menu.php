@@ -40,32 +40,7 @@ include('koneksi.php');
         <i class="fa-solid fa-xmark close"></i>
         <div class="progress"></div>
     </div>
-    <nav>
-      <div class="nav__header">
-        <div class="logo nav__logo">
-          <a href=""><img style="height: 45px; width: 200px;" src="assets/logo.png" alt="logo"></a>
-        </div>
-        <div class="nav__menu__btn" id="menu-btn">
-          <span><i class="ri-menu-line"></i></span>
-        </div>
-      </div>
-      <ul class="nav__links" id="nav-links">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="menu.php">Menu</a></li>
-        <li><a href="offer.php">Offer</a></li>
-        <li><a href="about.php">About</a></li>
-      </ul>
-      <div class="nav__btn">
-        <a href="testcart.php">
-        <i class="ri-shopping-bag-3-line" style="font-size: 1.4rem; color: var(--text-dark)"></i>
-        </a>
-      </div>
-      <div class="nav__btn">
-        <a href="profile.php">
-        <i class="ri-account-circle-line" style="font-size: 1.55rem; color: var(--text-dark)"></i>
-        </a>
-      </div>
-    </nav>
+    <?php include 'navbar.php'; ?>
 
     <section class="section__container special__container" id="special">
       <h2 class="section__header">Popular menu</h2>

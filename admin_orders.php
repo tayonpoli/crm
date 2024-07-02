@@ -221,8 +221,8 @@ option[disabled] {
                      <input type="hidden" name="order_id" value="<?php echo $fetch_orders['id']; ?>">
                      <select name="update_payment">
                         <option value="" selected disabled>Update payment</option>
-                        <option value="paid">Paid</option>
-                        <option value="unpaid">Unpaid</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Unpaid">Unpaid</option>
                      </select>
                      <input type="submit" value="Update" name="update_pay" class="option-btn">
                   </form>

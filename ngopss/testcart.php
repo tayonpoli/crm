@@ -8,8 +8,11 @@ include('koneksi.php');
 <?php 
 if(empty($_SESSION["pesanan"]) OR !isset($_SESSION["pesanan"]))
 {
-  echo "<script>alert('You arent order anything yet');</script>";
-  echo "<script>location= 'menu.php'</script>";
+  if(empty($_SESSION["reedem"]) OR !isset($_SESSION["reedem"]))
+  {
+    echo "<script>alert('You arent order anything yet');</script>";
+    echo "<script>location= 'menu.php'</script>";
+  }
 }
 ?>
 <?php 
@@ -43,32 +46,7 @@ if(empty($_SESSION["pesanan"]) OR !isset($_SESSION["pesanan"]))
     <title>Ngopss</title>
   </head>
   <body>
-  <nav>
-      <div class="nav__header">
-        <div class="logo nav__logo">
-          <a href=""><img style="height: 45px; width: 200px;" src="assets/logo.png" alt="logo"></a>
-        </div>
-        <div class="nav__menu__btn" id="menu-btn">
-          <span><i class="ri-menu-line"></i></span>
-        </div>
-      </div>
-      <ul class="nav__links" id="nav-links">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="menu.php">Menu</a></li>
-        <li><a href="offer.php">Offer</a></li>
-        <li><a href="about.php">About</a></li>
-      </ul>
-      <div class="nav__btn">
-        <a href="pesanan_pembeli.php">
-        <i class="ri-shopping-bag-3-line" style="font-size: 1.4rem; color: var(--text-dark)"></i>
-        </a>
-      </div>
-      <div class="nav__btn">
-        <a href="profile.php">
-        <i class="ri-account-circle-line" style="font-size: 1.55rem; color: var(--text-dark)"></i>
-        </a>
-      </div>
-    </nav>
+  <?php include 'navbar.php'; ?>
 
   <!-- Menu -->
   <section class="section__container special__container" >
@@ -76,6 +54,7 @@ if(empty($_SESSION["pesanan"]) OR !isset($_SESSION["pesanan"]))
       <p class="section__description">
       Details of your cart
       </p>
+      <?php if (isset($_SESSION['pesanan'])) { ?>
       <div class="special__grid" style="grid-template-columns: 1fr; justify-content:center; margin-left:364px">
             <?php $totalbelanja = 0; ?>
             <?php foreach ($_SESSION["pesanan"] as $id_menu => $jumlah) : ?>
@@ -96,7 +75,30 @@ if(empty($_SESSION["pesanan"]) OR !isset($_SESSION["pesanan"]))
                <a href="hapus_pesanan.php?id_menu=<?php echo $id_menu ?>"><i style="color: red; font-size:1.3rem" class="ri-delete-bin-5-fill"></i></a>
               </div>
               <?php $totalbelanja+=$subharga; ?>
-              <?php endforeach; ?>
+              <?php endforeach; 
+              }
+              ?>
+      </div>
+      <?php if (isset($_SESSION['reedem'])) { ?>
+      <div class="special__grid" style="grid-template-columns: 1fr; justify-content:center; margin-left:364px">
+            <?php foreach ($_SESSION["reedem"] as $id_menu => $jumlahh) : ?>
+
+            <?php 
+              $ambill = mysqli_query($koneksi, "SELECT * FROM products WHERE id='$id_menu'");
+              $pecahh = $ambill -> fetch_assoc();
+              $subpoint = $pecahh["point"]*$jumlahh;
+            ?>
+            <div class="special__card" style="padding: 2rem; display: flex; flex-direction:row; align-items:center; column-gap: 2rem; text-align:left; border-radius:28px; margin-left:8rem">
+              <img style="max-width: 60px;" src="upload/<?php echo $pecahh['image'] ?>" alt="...">
+             
+                <div style="width: 160px;"><h5><?php echo $pecahh["name"]; ?></h5></div>
+                <p class="price"><?php echo $pecahh["point"]; ?><span><i class="ri-copper-coin-fill" style="color: #F0BB40"></i></span></p>
+                <p class="price">x <?php echo $jumlahh; ?></p>
+              </div>
+              <?php endforeach; 
+            }
+            ?>
+
       </div>
       <br><br>
       <hr style="margin-inline: auto; width:690px; height:5px; background-color: black">

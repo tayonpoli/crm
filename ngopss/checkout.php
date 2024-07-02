@@ -8,12 +8,17 @@ session_start();
       }
       $user_id = $_SESSION['login_user'];
 
-      if(empty($_SESSION["pesanan"]) OR !isset($_SESSION["pesanan"])) {
-         echo "<script>alert('You arent order anything yet');</script>";
-         echo "<script>location= 'menu.php'</script>";
+      if(empty($_SESSION["pesanan"]) OR !isset($_SESSION["pesanan"]))
+      {
+        if(empty($_SESSION["reedem"]) OR !isset($_SESSION["reedem"]))
+        {
+          echo "<script>alert('You aren\'t order anything yet');</script>";
+          echo "<script>location= 'menu.php'</script>";
+        }
       }
 
       $totalbelanja = 0;
+      if (isset($_SESSION['pesanan'])) {
       foreach ($_SESSION["pesanan"] as $id_menu => $jumlah) : 
         $ambil = mysqli_query($koneksi, "SELECT * FROM products WHERE id='$id_menu'");
         $pecah = $ambil -> fetch_assoc();
@@ -23,6 +28,19 @@ session_start();
         $cart_products[] = $pecah['name'].' ('.$jumlah.') ';
         $totalbelanja+=$subharga; 
         endforeach;
+      }
+
+      if (isset($_SESSION['reedem'])) {
+      foreach ($_SESSION["reedem"] as $id_menu => $jumlahh) : 
+        $ambill = mysqli_query($koneksi, "SELECT * FROM products WHERE id='$id_menu'");
+        $pecahh = $ambill -> fetch_assoc();
+        $stock = $pecahh['stock'];
+        $subhargaa = 0;
+        $c_stock = $stock - $jumlahh;
+        $cart_products[] = $pecahh['name'].' ('.$jumlahh.') '; 
+        endforeach;
+      }
+
         $tax=$totalbelanja*0.1;
         $totalpay=$totalbelanja + $tax;
         $total = $totalpay + 15000 + 2000;
@@ -37,16 +55,23 @@ if(isset($_POST['order_btn'])){
    $delivery = mysqli_real_escape_string($koneksi, $_POST['delivery']);
    $address = mysqli_real_escape_string($koneksi, $_POST['address'].', '. $_POST['city'].', '. $_POST['pcode']);
    $placed_on = date('d-M-Y');
+   $points = floor($total / 10000);
    
 
    $total_products = implode(', ',$cart_products);
 
          mysqli_query($koneksi, "INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on, delivery) VALUES('$user_id', '$name', '$number', '$email', '$method', '$address', '$total_products', '$total', '$placed_on', '$delivery')") or die('query failed');
+         mysqli_query($koneksi, "UPDATE users SET poin = poin + $points WHERE id='$user_id'") or die('query failed');
+
          foreach ($_SESSION["pesanan"] as $id_menu => $jumlah) : 
           mysqli_query($koneksi, "UPDATE products SET stock = stock - $jumlah, sold = $jumlah WHERE id='$id_menu'");
           endforeach;
+          foreach ($_SESSION["reedem"] as $id_menu => $jumlahh) : 
+            mysqli_query($koneksi, "UPDATE products SET reedemed = $jumlahh WHERE id='$id_menu'");
+            endforeach;
          // Mengosongkan pesanan
          unset($_SESSION["pesanan"]);
+         unset($_SESSION["reedem"]);
       
          // Dialihkan ke halaman nota
          echo "<script>alert('Sucessful Ordered!');</script>";
@@ -76,32 +101,7 @@ if(isset($_POST['order_btn'])){
   </head>
 <body style="background-color: #F0F3F7;">
    
-<nav>
-      <div class="nav__header">
-        <div class="logo nav__logo">
-          <a href=""><img style="height: 45px; width: 200px;" src="assets/logo.png" alt="logo"></a>
-        </div>
-        <div class="nav__menu__btn" id="menu-btn">
-          <span><i class="ri-menu-line"></i></span>
-        </div>
-      </div>
-      <ul class="nav__links" id="nav-links">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="menu.php">Menu</a></li>
-        <li><a href="offer.php">Offer</a></li>
-        <li><a href="about.php">About</a></li>
-      </ul>
-      <div class="nav__btn">
-        <a href="testcart.php">
-        <i class="ri-shopping-bag-3-line" style="font-size: 1.4rem; color: var(--text-dark)"></i>
-        </a>
-      </div>
-      <div class="nav__btn">
-        <a href="profile.php">
-        <i class="ri-account-circle-line" style="font-size: 1.55rem; color: var(--text-dark)"></i>
-        </a>
-      </div>
-</nav>
+<?php include 'navbar.php'; ?>
 <form action="" method="post" style="width:1200px; justify-content:center; margin-inline:auto;"class="checkout-form">
 <br>
       <h2 class="section__header">Checkout form</h2>
@@ -221,6 +221,11 @@ if(isset($_POST['order_btn'])){
                     <p>Rp. <?php echo number_format($total) ?></p>
                 </div>
             </div>
+   
+            <div class="input-line" style="color: #747264; font-weight:600">
+                <p>You Potentially Get <?php $point = floor($total / 10000); echo $point ?> Points</p>
+            </div>
+
             <input type="submit" value="Complete purchase" name="order_btn">
 </div>
     </div>

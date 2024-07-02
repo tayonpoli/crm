@@ -12,6 +12,10 @@
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
 }
 
+.toast.error{
+    border-left: 6px solid #c91919;
+}
+
 .toast.active{
     transform: translateX(0%);
 }
@@ -31,6 +35,10 @@
     color: #fff;
     font-size: 20px;
     border-radius: 50%;
+}
+
+.toast-content.error .check {
+    background-color: #c91919; /* Red background for error icon */
 }
 
 .toast-content .message{
@@ -80,6 +88,10 @@
     height: 100%;
     width: 100%;
     background-color: #747264;
+}
+
+.toast.error .progress:before {
+    background-color: #c91919; /* Red background for progress bar on error */
 }
 
 .progress.active:before{

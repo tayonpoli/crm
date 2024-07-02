@@ -54,18 +54,23 @@
   padding: 0.75rem 1.5rem;
   outline: none;
   border: 1.5px solid;
-  border-color: var(--primary-color-dark);
+  border-color: #0000003b;
   white-space: nowrap;
   font-size: 1rem;
   color: var(--primary-color-dark);
-
+  background-color: unset;
+  font-family: 'Montserrat';
+  font-weight: 600;
   border-radius: 50px;
   transition: 0.3s;
   cursor: pointer;
 }
 
 .btn:hover {
-  background-color: var(--white);
+  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1);
+  background-color: #1a1a20;
+  color: white;
+  border: none;
 }
 
 .logo img {
@@ -243,7 +248,7 @@ nav {
   text-align: center;
   border-radius: 2rem;
   border: 1px solid;
-  border-color: #0000004D;
+  border-color: #0000001f;
   transition: 0.3s;
 }
 
@@ -351,7 +356,7 @@ nav {
   text-align: left;
   border-radius: 2.5rem;
   border: 1px solid;
-  border-color: #0000004D;
+  border-color: #0000001f;
   transition: 0.3s;
   margin-inline: auto;
 }
@@ -547,17 +552,6 @@ nav {
 .logout__btn {
   background-color: #D2042D;
   color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  outline: none;
-  border: 1.5px solid;
-  white-space: nowrap;
-  font-size: 1rem;
-  color: var(--white);
-
-  border-radius: 50px;
-  transition: 0.3s;
-  cursor: pointer;
 }
 
 .back__btn {
@@ -1357,6 +1351,10 @@ input[type="button"]:hover{
 
 .p-0 {
   padding: 0 !important;
+}
+
+.w-600 {
+  font-weight: 600;
 }
 
 .mb-2 {

@@ -80,13 +80,13 @@ session_start();
 }
 .main ul li .icon{
     font-size: 35px;
-    color: #ff4732;
+    color: #000000;
     margin: 0 60px;
 }
 .main ul li .text{
     font-size: 14px;
     font-weight: 600;
-    color: #ff4732;
+    color: #000000;
 }
 
 /* Progress Div Css  */
@@ -95,7 +95,7 @@ session_start();
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: rgba(68, 68, 68, 0.781);
+    background-color: rgba(0, 0, 0, 0.18);
     margin: 14px 0;
     display: grid;
     place-items: center;
@@ -108,7 +108,7 @@ session_start();
     position: absolute;
     width: 125px;
     height: 5px;
-    background-color: rgba(68, 68, 68, 0.781);
+    background-color: rgba(0, 0, 0, 0.18);
     right: 30px;
 }
 .one::after{
@@ -125,12 +125,12 @@ session_start();
 /* Active Css  */
 
 .main ul li .active{
-    background-color: #ff4732;
+    background-color: #747264;
     display: grid;
     place-items: center;
 }
 .main li .active::after{
-    background-color: #ff4732;
+    background-color: #747264;
 }
 .main ul li .active p{
     display: none;
@@ -182,32 +182,7 @@ session_start();
   </head>
 <body style="background-color: #F0F3F7;">
    
-<nav>
-      <div class="nav__header">
-        <div class="logo nav__logo">
-          <a href=""><img style="height: 45px; width: 200px;" src="assets/logo.png" alt="logo"></a>
-        </div>
-        <div class="nav__menu__btn" id="menu-btn">
-          <span><i class="ri-menu-line"></i></span>
-        </div>
-      </div>
-      <ul class="nav__links" id="nav-links">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="menu.php">Menu</a></li>
-        <li><a href="offer.php">Offer</a></li>
-        <li><a href="about.php">About</a></li>
-      </ul>
-      <div class="nav__btn">
-        <a href="testcart.php">
-        <i class="ri-shopping-bag-3-line" style="font-size: 1.4rem; color: var(--text-dark)"></i>
-        </a>
-      </div>
-      <div class="nav__btn">
-        <a href="profile.php">
-        <i class="ri-account-circle-line" style="font-size: 1.55rem; color: var(--text-dark)"></i>
-        </a>
-      </div>
-</nav>
+<?php include 'navbar.php'; ?>
 <form action="" method="post" style="width:1200px; justify-content:center; margin-inline:auto;"class="checkout-form">
 <br>
       <h2 class="section__header">Tracking Order</h2>
@@ -285,7 +260,7 @@ session_start();
 </div>
     </div>
          <div class="orders-container">
-            <a href="profile.php" class="back__btn"><i class="ri-arrow-left-line"></i>
+            <a href="profile.php" class="btn back__btn"><i class="ri-arrow-left-line"></i>
             <span> Back</span>
             </a>
         <div class="main">
@@ -315,7 +290,7 @@ session_start();
                 <p class="text">In Delivery</p>
             </li>
             <li>
-                <i class="icon uil uil-exchange"></i>
+                <i class="icon uil uil-file-check-alt"></i>
                 <div class="progress three">
                     <p>3</p>
                     <i class="uil uil-check"></i>

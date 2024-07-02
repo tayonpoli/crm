@@ -35,32 +35,7 @@ session_start();
   </head>
 <body style="background-color: #F0F3F7;">
    
-<nav>
-      <div class="nav__header">
-        <div class="logo nav__logo">
-          <a href=""><img style="height: 45px; width: 200px;" src="assets/logo.png" alt="logo"></a>
-        </div>
-        <div class="nav__menu__btn" id="menu-btn">
-          <span><i class="ri-menu-line"></i></span>
-        </div>
-      </div>
-      <ul class="nav__links" id="nav-links">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="menu.php">Menu</a></li>
-        <li><a href="offer.php">Offer</a></li>
-        <li><a href="about.php">About</a></li>
-      </ul>
-      <div class="nav__btn">
-        <a href="testcart.php">
-        <i class="ri-shopping-bag-3-line" style="font-size: 1.4rem; color: var(--text-dark)"></i>
-        </a>
-      </div>
-      <div class="nav__btn">
-        <a href="profile.php">
-        <i class="ri-account-circle-line" style="font-size: 1.55rem; color: var(--text-dark)"></i>
-        </a>
-      </div>
-</nav>
+<?php include 'navbar.php'; ?>
 <form action="" method="post" style="width:1200px; justify-content:center; margin-inline:auto;"class="checkout-form">
 <br>
       <h2 class="section__header">Hi, <?php echo $name ?></h2>
@@ -84,6 +59,14 @@ session_start();
                     <p><?php echo $name ?></p>
                 </div>
          </div>
+         <div class="input-container mb-1">    
+            <div class="input-line o-3 mb-0">
+                <p>Points</p>
+            </div>
+            <div class="input-line txt-r mb-0 totalp">
+                    <p><?php echo $userr['poin'] ?><span><i class="ri-copper-coin-fill" style="color: #F0BB40"></i></span></p>
+                </div>
+         </div>
          <div class="input-container mb-2">    
             <div class="input-line o-3 mb-0">
                 <p>Email</p>
@@ -93,7 +76,7 @@ session_start();
                 </div>
          </div>
          <div style="margin-inline: auto;" class="explore__btn">
-         <a href="logout.php" class="logout__btn">
+         <a href="logout.php" class="btn logout__btn">
             Logout <span><i class="ri-logout-box-r-line"></i></span>
             </a>
         </div>
@@ -180,7 +163,7 @@ session_start();
                     <p>Rp. <?php echo number_format($result['total_price']); ?></p>
                 </div>
          </div>
-         <div class="input-container ">    
+         <div class="input-container mb-1">    
             <div class="input-line o-3 mb-0">
                 <p>Payment status</p>
             </div>
@@ -190,10 +173,9 @@ session_start();
          </div>
          <div class="input-container ">    
             <div class="input-line o-3 mb-0">
-                <p>Order status</p>
             </div>
             <div class="input-line txt-r mb-0 totalp">
-                    <a href="tracking.php?order_id=<?php echo $result['id']; ?>&shipping_status=<?php echo $result['shipping_status']; ?>" class="status">Track Order</a>
+                    <a href="tracking.php?order_id=<?php echo $result['id']; ?>&shipping_status=<?php echo $result['shipping_status']; ?>" class="btn">Track Order</a>
                 </div>
          </div>
          </div>
