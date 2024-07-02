@@ -112,6 +112,8 @@ session_start();
       </div>
     </section>
     <!-- Community End -->
+     <br>
+     <br>
     <script>
     $(document).ready(function () {
         // Add to Cart button click event
@@ -157,7 +159,7 @@ session_start();
                 }
             });
         });
-    });
+      });
 </script>
 
 
