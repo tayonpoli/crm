@@ -94,6 +94,24 @@ session_start();
               <?php endforeach; ?>
       </div>
     </section>
+    <!-- Community Building -->
+    <section class="section_container special_container" style="display: flex; align-items: center;">
+      <div style="flex: 1; padding: 20px;">
+        <img style="max-width: 45px; max-height: 45px; margin-inline: auto;" src="assets/logoo.png" alt="logoo" />
+        <br>
+        <h2 class="section__header">Join Our Community!</h2>
+        <p class="section__description" style="margin:auto; width:100%; text-align:justify; font-weight:600;">
+          Join our community on Discord and get special offers, exclusive promotions and discount vouchers directly from us! Enjoy the best experience with our cafe and be part of an exclusive customer base that always gets the best.
+        </p>
+        <div style="display:flex; justify-content:center; align-items:center;">
+          <button id="community-btn" style="background-color:#0f0f0f; color:#fff; border-radius:24px; padding:15px 30px; font-size:25px; font-weight:700; cursor:pointer; margin-top:50px; margin-bottom:111px;">Join Discord</button>
+        </div>
+      </div>
+      <div style="flex: 1; padding: 20px; ">
+          <img style="max-width: 100%; height: auto; border-radius:16px;" src="assets/community.jpeg" alt="Community Image" />
+      </div>
+    </section>
+    <!-- Community End -->
     <script>
     $(document).ready(function () {
         // Add to Cart button click event
