@@ -91,6 +91,8 @@ if(isset($_POST['update_product'])){
 
    header('location:admin_products.php');
 
+}elseif(isset($_POST['cancel'])){
+   header('location:admin_products.php');
 }
 
 ?>
@@ -188,7 +190,7 @@ if(isset($_POST['update_product'])){
       <input type="number" name="update_point" value="<?php echo $fetch_update['point']; ?>" min="0" class="box" required placeholder="enter product point">
       <input type="file" class="box" name="update_image" accept="image/jpg, image/jpeg, image/png">
       <input type="submit" value="update" name="update_product" class="btn">
-      <input type="reset" value="cancel" id="close-update" class="option-btn">
+      <input type="submit" value="cancel" name="cancel" id="close-update" class="option-btn">
    </form>
    <?php
          }

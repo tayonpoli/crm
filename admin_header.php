@@ -23,6 +23,7 @@ if(isset($message)){
           <li><a href="admin_page.php"><i class="fas fa-home"></i>Home</a></li>
           <li><a href="admin_products.php"><i class="fa-solid fa-box-archive"></i>Products</a></li>
           <li><a href="admin_orders.php"><i class="fa-solid fa-file-lines"></i>Orders</a></li>
+          <li><a href="customers.php"><i class="fa-solid fa-file-lines"></i>Customers</a></li>
           <li><a href="employee.php"><i class="fa-solid fa-user-tie"></i>Employee</a></li>
           <div class="icons">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -32,34 +33,3 @@ if(isset($message)){
         </ul>
       </nav>
     </div>
-
-<!-- <header class="header">
-
-   <div class="flex">
-
-      <a href="admin_page.php" class="logo">Admin<span>Panel</span></a>
-
-      <nav class="navbar">
-         <a href="admin_page.php">home</a>
-         <a href="admin_products.php">products</a>
-         <a href="admin_orders.php">orders</a>
-         <a href="admin_users.php">users</a>
-         <a href="admin_purchase.php">purchase</a>
-         <a href="employee.php">employee</a>
-      </nav>
-
-      <div class="icons">
-         <div id="menu-btn" class="fas fa-bars"></div>
-         <div id="user-btn" class="fas fa-user"></div>
-      </div>
-
-      <div class="account-box">
-         <p>username : <span><?php echo $_SESSION['admin_name']; ?></span></p>
-         <p>email : <span><?php echo $_SESSION['admin_email']; ?></span></p>
-         <a href="logout.php" class="delete-btn">logout</a>
-         <div>new <a href="login.php">login</a> | <a href="register.php">register</a></div>
-      </div>
-
-   </div>
-
-</header> -->
