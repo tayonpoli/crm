@@ -13,8 +13,8 @@ if(!isset($admin_id)){
 
 if(isset($_GET['delete'])){
   $delete_id = $_GET['delete'];
-  mysqli_query($conn, "DELETE FROM `employee` WHERE employee_id = '$delete_id'") or die('query failed');
-  header('location:employee.php');
+  mysqli_query($conn, "DELETE FROM `users` WHERE id = '$delete_id'") or die('query failed');
+  header('location:customers.php');
 }
 
 if(isset($_POST['update_user'])){
@@ -38,7 +38,7 @@ if(isset($_POST['update_user'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Purchase</title>
+   <title>Customers</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -155,7 +155,7 @@ option[disabled] {
          </thead>
          <tbody>
             <?php
-                $query = "SELECT * FROM `users` ORDER BY id DESC";
+                $query = "SELECT * FROM `users` WHERE user_type = 'user' ORDER BY id DESC";
                 
                 $result = mysqli_query($conn, $query) or die('Query failed');
 
@@ -221,54 +221,4 @@ option[disabled] {
 
 </section>
 </body>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-   const filterButtons = document.querySelectorAll('.filter-btn');
-   let currentDepartment = null; // Track current department filter
-
-   filterButtons.forEach(button => {
-      button.addEventListener('click', function() {
-         const department = this.getAttribute('data-department');
-
-         filterButtons.forEach(btn => {
-            if (btn !== this) {
-               btn.classList.remove('active');
-            }
-         });
-         this.classList.toggle('active');
-
-
-         if (department === currentDepartment) {
-            // If the same department filter button is clicked again, revert to displaying all employees
-            currentDepartment = null;
-            fetchEmployeeData(null); // Pass null to fetch all employees
-         } else {
-            // Otherwise, fetch employees based on the selected department
-            currentDepartment = department;
-            fetchEmployeeData(department); // Pass department to fetch filtered employees
-         }
-      });
-   });
-
-   // Function to fetch employee data based on department filter
-   function fetchEmployeeData(department) {
-      let url = 'fetch_employee.php';
-      if (department !== null) {
-         url += `?department=${department}`;
-      }
-
-      fetch(url)
-         .then(response => response.text())
-         .then(data => {
-            // Update table body with fetched employee data
-            document.getElementById('employee-table').innerHTML = data;
-         })
-         .catch(error => {
-            console.error('Error fetching employee data:', error);
-         });
-   }
-
-   // Initial fetch to display all employees on page load
-   fetchEmployeeData(null);
-});
-</script>
+</html>

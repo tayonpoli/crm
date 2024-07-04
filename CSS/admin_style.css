@@ -395,6 +395,44 @@ section{
    width: 100%;
 }
 
+.add-product-form{
+   min-height: 100vh;
+   background-color: rgba(0,0,0,.7);
+   display: none;
+   align-items: center;
+   justify-content: center;
+   padding:2rem;
+   overflow-y: scroll;
+   position: fixed;
+   top:0; left:0; 
+   z-index: 1200;
+   width: 100%;
+}
+
+.add-product-form form{
+   width: 50rem;
+   padding:2rem;
+   text-align: center;
+   border-radius: .5rem;
+   background-color: var(--white);
+}
+
+.add-product-form form img{
+   height: 25rem;
+   margin-bottom: 1rem;
+}
+
+.add-product-form form .box{
+   margin:1rem 0;
+   padding:1.2rem 1.4rem;
+   border:var(--border);
+   border-radius: .5rem;
+   background-color: var(--light-bg);
+   font-size: 1.8rem;
+   color:var(--black);
+   width: 100%;
+}
+
 .orders .box-container{
    display: grid;
    grid-template-columns: repeat(auto-fit, 30rem);

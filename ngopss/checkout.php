@@ -56,11 +56,13 @@ if(isset($_POST['order_btn'])){
    $address = mysqli_real_escape_string($koneksi, $_POST['address'].', '. $_POST['city'].', '. $_POST['pcode']);
    $placed_on = date('d-M-Y');
    $points = floor($total / 10000);
+   $discountAmount = isset($_POST['discount']) ? floatval($_POST['discount']) : 0;
+    $finalTotal = $total - $discountAmount;
    
 
    $total_products = implode(', ',$cart_products);
 
-         mysqli_query($koneksi, "INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on, delivery) VALUES('$user_id', '$name', '$number', '$email', '$method', '$address', '$total_products', '$total', '$placed_on', '$delivery')") or die('query failed');
+         mysqli_query($koneksi, "INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on, delivery) VALUES('$user_id', '$name', '$number', '$email', '$method', '$address', '$total_products', '$finalTotal', '$placed_on', '$delivery')") or die('query failed');
          mysqli_query($koneksi, "UPDATE users SET poin = poin + $points WHERE id='$user_id'") or die('query failed');
 
          foreach ($_SESSION["pesanan"] as $id_menu => $jumlah) : 
@@ -104,7 +106,7 @@ if(isset($_POST['order_btn'])){
 <?php include 'navbar.php'; ?>
 <form action="" method="post" style="width:1200px; justify-content:center; margin-inline:auto;"class="checkout-form">
 <br>
-      <h2 class="section__header">Checkout form</h2>
+      <h2 class="section__header">Checkout Form</h2>
       <div class="check__grid">
          <div class="form-container">
         <h2 class="form-title">Shipping Details</h2>
@@ -183,23 +185,23 @@ if(isset($_POST['order_btn'])){
     </div>
                 </div>
             </div>
-    <script src="script.js"></script>
+    
 </div>
     </div>
     <div class="summ-container">
-        <h2 class="summ-title">Shopping summary</h2>
+        <h2 class="summ-title">Shopping Summary</h2>
         <div class="checkout-form">
         <div class="input-container">    
             <div class="input-line o-3 mb-0">
-                <p>Total price</p>
+                <p>Total Price</p>
             </div>
             <div class="input-line txt-r mb-0">
-                    <p>Rp. <?php $totalp=$totalpay; echo number_format($totalp) ?></p>
+                    <p id="totalPrice">Rp. <?php $totalp=$totalpay; echo number_format($totalp) ?></p>
                 </div>
          </div>
          <div class="input-container">    
             <div class="input-line o-3 mb-0">
-                <p>Delivery fee</p>
+                <p>Delivery Fee</p>
             </div>
             <div class="input-line txt-r mb-0">
             <p id="delfee">Rp. 0,00 </p>
@@ -207,25 +209,56 @@ if(isset($_POST['order_btn'])){
          </div>
          <div class="input-container">    
             <div class="input-line o-3">
-                <p>Service fee</p>
+                <p>Service Fee</p>
             </div>
             <div class="input-line txt-r">
                     <p name="pfee" id="payfee">Rp. 0,00 </p>
                 </div>
          </div>
+         <div class="input-container mb-2">
+                    <div class="input-line mb-0">
+                        <p>Discount</p>
+                    </div>
+                    <div class="input-line txt-r mb-0">
+                        <p id="discount">- Rp. 0,00</p>
+                    </div>
+                </div>
+            <div class="input-line mb-1">
+              <div class="select-voucher" id="selectVoucher" data-total-pay="<?php echo $totalp; ?>" data-delivery-fee="15000" data-service-fee="2000">
+                  <div class="select-btn">
+                      <span class="sBtn-text">Select Voucher</span>
+                      <i class="bx bx-chevron-down"></i>
+                  </div>
+                  <ul class="options">
+                  <?php
+                          $query2 = mysqli_query($koneksi, 'SELECT * FROM vouchers');
+                          $result = mysqli_fetch_all($query2, MYSQLI_ASSOC);
+                          
+                          foreach($result as $result) : ?>
+                          <li class="option" data-discount="<?php echo $result['discount']; ?>">
+                            <img src="assets/discount.png" alt="icon">
+                            <span class="option-text"><?php echo $result['title'] ?></span>
+                          </li>
+                          <?php endforeach; ?>
+                  </ul>
+                  <input type="hidden" name="voucher" id="selectedVoucher">
+                  <input type="hidden" name="discount" id="discountValue">
+              </div>
+            </div>
+            <div class="input-line" style="color: #747264; font-weight:400">
+                <p style="font-size:13px">You potentially get <?php $point = floor($total / 10000); echo $point ?> points</p>
+            </div>
+            <div class="input-line">
+                <hr style="width:300px">
+            </div>
             <div class="input-container">
                 <div class="input-line">
-                    <p>Shopping total</p>
+                    <p>Shopping Total</p>
                 </div>
                 <div class="input-line txt-r totalp">
-                    <p>Rp. <?php echo number_format($total) ?></p>
+                    <p id="total">Rp. <?php echo number_format($total) ?></p>
                 </div>
             </div>
-   
-            <div class="input-line" style="color: #747264; font-weight:600">
-                <p>You Potentially Get <?php $point = floor($total / 10000); echo $point ?> Points</p>
-            </div>
-
             <input type="submit" value="Complete purchase" name="order_btn">
 </div>
     </div>
@@ -236,64 +269,6 @@ if(isset($_POST['order_btn'])){
       </div>
 </form>
 
-<!-- <section style="width:1200px; justify-content:center; margin-inline:auto;"class="checkout">
-
-
-   <form action="" method="post">
-      <h3>place your order</h3>
-      <div class="flex">
-         <div class="inputBox">
-            <span>your name :</span>
-            <input type="text" name="name" required placeholder="enter your name">
-         </div>
-         <div class="inputBox">
-            <span>your number :</span>
-            <input type="number" name="number" required placeholder="enter your number">
-         </div>
-         <div class="inputBox">
-            <span>your email :</span>
-            <input type="email" name="email" required placeholder="enter your email">
-         </div>
-         <div class="inputBox">
-            <span>payment method :</span>
-            <select name="method">
-               <option value="cash_on_delivery">Cash on Delivery</option>
-               <option value="gopay">Gopay</option>
-               <option value="dana">DANA</option>
-               <option value="qris">QRIS</option>
-            </select>
-
-            
-         </div>
-         <div class="inputBox">
-            <span>address line 01 :</span>
-            <input type="number" min="0" name="flat" required placeholder="e.g. flat no.">
-         </div>
-         <div class="inputBox">
-            <span>address line 01 :</span>
-            <input type="text" name="street" required placeholder="e.g. street name">
-         </div>
-         <div class="inputBox">
-            <span>city :</span>
-            <input type="text" name="city" required placeholder="e.g. mumbai">
-         </div>
-         <div class="inputBox">
-            <span>state :</span>
-            <input type="text" name="state" required placeholder="e.g. maharashtra">
-         </div>
-         <div class="inputBox">
-            <span>country :</span>
-            <input type="text" name="country" required placeholder="e.g. india">
-         </div>
-         <div class="inputBox">
-            <span>pin code :</span>
-            <input type="number" min="0" name="pin_code" required placeholder="e.g. 123456">
-         </div>
-      </div>
-      <input type="submit" value="order now" class="btn" name="order_btn">
-   </form>
-
-</section> -->
 
 <footer class="footer" id="contact">
       <div class="section__container footer__container">
@@ -336,7 +311,7 @@ if(isset($_POST['order_btn'])){
     </footer>
 
 <!-- custom js file link  -->
-<script src="js/script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html

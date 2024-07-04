@@ -1236,7 +1236,8 @@ input[type="button"]:hover{
   margin-right: 1rem;
 }
 .option .option-text{
-  font-size: 18px;
+  font-size: 1rem;
+  font-weight: 600;
   color: #333;
 }
 .sub-menu-wrap {
@@ -1402,4 +1403,65 @@ input[type="button"]:hover{
   box-shadow: 3px 4px #646464;
   transition: all 0.2s ease-out;
   background-color: #757576;
+}
+
+
+.select-voucher{
+  width: 300px;
+}
+.select-voucher .select-btn{
+  display: flex;
+  height: 55px;
+  background: #fff;
+  padding: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  align-items: center;
+  cursor: pointer;
+  justify-content: space-between;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.select-btn i{
+  font-size: 25px;
+  transition: 0.3s;
+}
+.select-voucher.active .select-btn i{
+  transform: rotate(-180deg);
+}
+.select-voucher .options{
+  width: 300px;
+  position: absolute;
+  padding: 20px;
+  z-index: 100;
+  margin-top: 10px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 0 3px rgba(0,0,0,0.1);
+  display: none;
+}
+.select-voucher.active .options{
+  display: block;
+}
+.options .option{
+  display: flex;
+  height: 55px;
+  cursor: pointer;
+  padding: 0 16px;
+  border-radius: 8px;
+  align-items: center;
+  background: #fff;
+}
+.options .option:hover{
+  background: #F2F2F2;
+}
+.option img{
+  width: 15%;
+  margin-right: 1rem;
+}
+.sub-menu-wrap {
+  position: absolute;
+  top: 100%;
+  right: 10%;
+  width: 320px;
 }

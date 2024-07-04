@@ -51,3 +51,46 @@ const deliveryOptionMenu = document.getElementById("selectDelivery");
         });
     });
 
+    const voucherOptionMenu = document.getElementById("selectVoucher");
+    const voucherSelectBtn = voucherOptionMenu.querySelector(".select-btn");
+    const voucherOptions = voucherOptionMenu.querySelectorAll(".option");
+    const voucherBtnText = voucherOptionMenu.querySelector(".sBtn-text");
+    const selectedVoucherInput = document.getElementById("selectedVoucher");
+    const discountInput = document.getElementById("discountValue");
+    const totalPriceElem = document.getElementById('totalPrice');
+    const deliveryFeeElem = document.getElementById('deliveryFee');
+    const serviceFeeElem = document.getElementById('serviceFee');
+    const discountElem = document.getElementById('discount');
+    const totalElem = document.getElementById('total');
+
+    const totalPay = parseFloat(voucherOptionMenu.getAttribute('data-total-pay'));
+    const deliveryFee = parseFloat(voucherOptionMenu.getAttribute('data-delivery-fee'));
+    const serviceFee = parseFloat(voucherOptionMenu.getAttribute('data-service-fee'));
+    const total = totalPay + deliveryFee + serviceFee;
+
+    voucherSelectBtn.addEventListener("click", () => {
+        voucherOptionMenu.classList.toggle("active");
+    });
+
+    voucherOptions.forEach(option => {
+        option.addEventListener("click", () => {
+            let selectedOption = option.querySelector(".option-text").innerText;
+            voucherBtnText.innerText = selectedOption;
+
+            selectedVoucherInput.value = selectedOption; // Set the value of the hidden input field
+            
+            // Apply discount and update total prices
+            const discount = parseFloat(option.getAttribute('data-discount'));
+            const discountAmount = totalPay * discount;
+            const totalAfterDiscount = totalPay - discountAmount;
+            const grandTotal = totalAfterDiscount + deliveryFee + serviceFee;
+
+            totalPriceElem.textContent = `Rp. ${totalPay.toLocaleString()}`;
+            discountElem.textContent = `- Rp. ${discountAmount.toLocaleString()}`;
+            totalElem.textContent = `Rp. ${grandTotal.toLocaleString()}`;
+            discountInput.value = discountAmount;
+
+            voucherOptionMenu.classList.remove("active");
+        });
+    });
+

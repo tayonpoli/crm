@@ -23,7 +23,8 @@ if(isset($message)){
           <li><a href="admin_page.php"><i class="fas fa-home"></i>Home</a></li>
           <li><a href="admin_products.php"><i class="fa-solid fa-box-archive"></i>Products</a></li>
           <li><a href="admin_orders.php"><i class="fa-solid fa-file-lines"></i>Orders</a></li>
-          <li><a href="customers.php"><i class="fa-solid fa-file-lines"></i>Customers</a></li>
+          <li><a href="admin_voucher.php"><i class="fa-solid fa-tags"></i>Discount</a></li>
+          <li><a href="customers.php"><i class="fa-solid fa-users"></i>Customers</a></li>
           <li><a href="employee.php"><i class="fa-solid fa-user-tie"></i>Employee</a></li>
           <div class="icons">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
