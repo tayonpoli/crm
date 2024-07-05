@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Jul 2024 pada 11.53
+-- Waktu pembuatan: 04 Jul 2024 pada 18.33
 -- Versi server: 10.4.25-MariaDB
 -- Versi PHP: 8.1.10
 
@@ -151,7 +151,9 @@ INSERT INTO `orders` (`id`, `user_id`, `name`, `number`, `email`, `method`, `add
 (33, 5, 'dasdasdqad', '1231231', 'tayon@gmail.com', 'Gopay', 'Jalan Professor Doktor Satrio, jakarta selatan, 12940', 'Moccacino (1) , Cappucino (1) ', 48900, '01-Jul-2024', 'Grab', 'pending', 'pending', NULL),
 (34, 5, 'eldwin', '133', 'tayon@gmail.com', 'Gopay', 'Jalan Professor Doktor Satrio, jakarta selatan, 12940', 'Cappucino (1) , Moccacino (1) , Croissant (1) ', 111600, '01-Jul-2024', 'Grab', 'pending', 'pending', NULL),
 (35, 5, 'eldwin', '133', 'tayon@gmail.com', '', 'Jalan Professor Doktor Satrio, jakarta selatan, 12940', 'Cappucino (1) , Moccacino (1) , Croissant (1) ', 111600, '01-Jul-2024', '', 'pending', 'pending', NULL),
-(36, 5, 'tes1', '123123', 'tayon@gmail.com', 'Gopay', 'Jalan Professor Doktor Satrio, jakarta selatan, 12940', 'Cappucino (1) , Moccacino (1) , Croissant (1) , Espresso (1) ', 132500, '01-Jul-2024', 'Grab', 'Paid', 'Complete', NULL);
+(36, 5, 'tes1', '123123', 'tayon@gmail.com', 'Gopay', 'Jalan Professor Doktor Satrio, jakarta selatan, 12940', 'Cappucino (1) , Moccacino (1) , Croissant (1) , Espresso (1) ', 132500, '01-Jul-2024', 'Grab', 'Paid', 'Complete', NULL),
+(37, 5, 'tesss', '123', 'tayon@gmail.com', 'Gopay', 'Jalan Professor Doktor Satrio, jakarta selatan, 12940', 'Moccacino (1) ', 45710, '03-Jul-2024', 'Grab', 'Pending', 'pending', NULL),
+(38, 5, 'tess', '123', 'tayon@gmail.com', 'Gopay', 'Jalan Professor Doktor Satrio, jakarta selatan, 12940', 'Moccacino (1) ', 45710, '03-Jul-2024', 'Go Send', 'Pending', 'pending', NULL);
 
 -- --------------------------------------------------------
 
@@ -181,7 +183,7 @@ INSERT INTO `products` (`id`, `name`, `type`, `price`, `image`, `event`, `discou
 (3, 'Espresso', 'Coffee', 19000, 'espresso.png', '', 0, 99, 1, 22, 0),
 (4, 'Cappucino', 'Coffee', 22000, 'cappucino.png', '', 0, 97, 1, 22, 1),
 (5, 'Double trouble', 'Offer', 40000, 'offer1.png', 'Limited offer', 58000, 100, 0, 22, 0),
-(6, 'Moccacino', 'Coffee', 29000, 'moccacino.png', NULL, NULL, 97, 1, 22, 1),
+(6, 'Moccacino', 'Coffee', 29000, 'moccacino.png', NULL, NULL, 95, 1, 22, 1),
 (7, 'Croissant', 'Pastry', 35000, 'croissant.png', NULL, NULL, 98, 1, 22, 0),
 (8, 'Sweet release', 'Offer', 40000, 'sweet.png', 'Ramadhan edition', 58000, 100, 0, 22, 0),
 (9, 'Cake combo', 'Offer', 45000, 'offer5.png', 'Limited offer', 60000, 100, 0, 22, 0),
@@ -317,6 +319,27 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `user_type`, `poin`) VAL
 (7, 'eldwinn', 'eldwin@gmail.com', '202cb962ac59075b964b07152d234b70', 'user', 0),
 (8, 'admin123', 'admin123@gmail.com', '202cb962ac59075b964b07152d234b70', 'admin', 0);
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `vouchers`
+--
+
+CREATE TABLE `vouchers` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `discount` float NOT NULL,
+  `description` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `vouchers`
+--
+
+INSERT INTO `vouchers` (`id`, `title`, `discount`, `description`) VALUES
+(1, '10% Off ', 0.1, 'Discount 10% of total price for your first transaction'),
+(1010, '20% Off', 0.2, 'Discount 20% of total price for your second transaction');
+
 --
 -- Indexes for dumped tables
 --
@@ -383,6 +406,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `vouchers`
+--
+ALTER TABLE `vouchers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -414,7 +443,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT untuk tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT untuk tabel `products`
@@ -445,6 +474,12 @@ ALTER TABLE `revenue`
 --
 ALTER TABLE `users`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `vouchers`
+--
+ALTER TABLE `vouchers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1011;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
