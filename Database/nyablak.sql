@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Jul 2024 pada 18.33
+-- Waktu pembuatan: 07 Jul 2024 pada 10.42
 -- Versi server: 10.4.25-MariaDB
 -- Versi PHP: 8.1.10
 
@@ -170,9 +170,9 @@ CREATE TABLE `products` (
   `event` varchar(50) DEFAULT NULL,
   `discount` int(11) DEFAULT NULL,
   `stock` int(11) DEFAULT NULL,
-  `sold` int(11) NOT NULL,
-  `point` int(11) NOT NULL,
-  `reedemed` int(11) NOT NULL
+  `sold` int(11) DEFAULT NULL,
+  `point` int(11) DEFAULT NULL,
+  `reedemed` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -182,21 +182,24 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id`, `name`, `type`, `price`, `image`, `event`, `discount`, `stock`, `sold`, `point`, `reedemed`) VALUES
 (3, 'Espresso', 'Coffee', 19000, 'espresso.png', '', 0, 99, 1, 22, 0),
 (4, 'Cappucino', 'Coffee', 22000, 'cappucino.png', '', 0, 97, 1, 22, 1),
-(5, 'Double trouble', 'Offer', 40000, 'offer1.png', 'Limited offer', 58000, 100, 0, 22, 0),
+(5, 'Double Trouble', 'Offer', 40000, 'Group 85 (1).png', 'Limited Offer', 58000, 100, 0, 22, 0),
 (6, 'Moccacino', 'Coffee', 29000, 'moccacino.png', NULL, NULL, 95, 1, 22, 1),
 (7, 'Croissant', 'Pastry', 35000, 'croissant.png', NULL, NULL, 98, 1, 22, 0),
-(8, 'Sweet release', 'Offer', 40000, 'sweet.png', 'Ramadhan edition', 58000, 100, 0, 22, 0),
-(9, 'Cake combo', 'Offer', 45000, 'offer5.png', 'Limited offer', 60000, 100, 0, 22, 0),
-(10, 'Morning combo', 'Offer', 40000, 'offer3.png', 'Special morning', 65000, 100, 0, 22, 0),
+(8, 'Coffee Duo Delight', 'Offer', 40000, 'Group 85.png', 'Limited Offer', 58000, 100, 0, 22, 0),
+(9, 'Coffee Threesome', 'Offer', 55000, 'Group 85 (3).png', 'Limited Offer', 65000, 100, 0, 22, 0),
+(10, 'Morning combo', 'Offerr', 40000, 'offer3.png', 'Special morning', 65000, 100, 0, 22, 0),
 (11, 'Cookies & Cream', 'Non', 35000, 'cookies.png', NULL, NULL, 100, 0, 22, 0),
 (12, 'Fanta float', 'Non', 25000, 'fanta.png', NULL, NULL, 100, 0, 22, 0),
-(13, 'Perfect combo', 'Offer', 35000, 'offer4.png', 'Lunch offer', 45000, 100, 0, 22, 0),
+(13, 'Perfect combo', 'Offerr', 35000, 'offer4.png', 'Lunch offer', 45000, 100, 0, 22, 0),
 (14, 'Americano', 'Coffee', 22000, 'americano.png', NULL, NULL, 100, 0, 22, 0),
 (15, 'Matcha frappe', 'Non', 38000, 'matcha.png', NULL, NULL, 100, 0, 22, 0),
 (16, 'Muffin', 'Pastry', 32000, 'muffin.png', NULL, NULL, 100, 0, 22, 0),
 (17, 'Sandwich', 'Pastry', 34000, 'sandwich.png', NULL, NULL, 100, 0, 22, 0),
 (18, 'Cookies', 'Pastry', 30000, 'cookie.png', NULL, NULL, 100, 0, 22, 0),
-(19, 'Sweet sunset', '', 44000, 'sunset.png', NULL, NULL, 100, 0, 22, 0);
+(19, 'Sweet sunset', '', 44000, 'sunset.png', NULL, NULL, 100, 0, 22, 0),
+(21, 'Lovers\' Specials', 'Offer', 43000, 'Group 85 (2).png', 'Valentine Specials', 58000, NULL, NULL, 22, NULL),
+(22, 'Cupid\'s Picks', 'Offer', 45000, 'Group 85 (4).png', 'Valentine Specials', 60000, NULL, NULL, 1, NULL),
+(23, 'Valentine Brew', 'Offer', 58000, 'Group 85 (10).png', 'Valentine Specials', 75000, NULL, NULL, 22, NULL);
 
 -- --------------------------------------------------------
 
@@ -289,6 +292,30 @@ INSERT INTO `revenue` (`order_id`, `order_placed`, `name`, `number`, `email`, `a
 (26, '25-Mar-2024', 'eldwin', '1235343', 'tayon@gmail.com', 'Jl. Entah No.666, Bekasi, 124343', 'Sweet release (1) , Cappucino (1) ', 85200, 'Gopay', 'paid'),
 (31, '26-Mar-2024', 'llklhlh', '454564', 'tayon@gmail.com', 'jl.hjhjh, Betkgk, 9898', 'Cappucino (1) , Espresso (1) ', 62100, 'Gopay', 'paid'),
 (36, '01-Jul-2024', 'tes1', '123123', 'tayon@gmail.com', 'Jalan Professor Doktor Satrio, jakarta selatan, 12940', 'Cappucino (1) , Moccacino (1) , Croissant (1) , Espresso (1) ', 132500, 'Gopay', 'paid');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` int(10) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `review` text NOT NULL,
+  `rating` int(50) NOT NULL,
+  `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `name`, `review`, `rating`, `created_at`) VALUES
+(1, 'c', 'c', 4, '2024-07-05 10:47:53.000000'),
+(2, 'abc', 'You have successfully installed XAMPP on this system! Now you can start using Apache, MariaDB, PHP and other components. You can find more info in the FAQs section or check the HOW-TO Guides for getting started with PHP applications.\r\n\r\nXAMPP is meant only for development purposes. It has certain configuration settings that make it easy to develop locally but that are insecure if you want to have your installation accessible to others.\r\n\r\nStart the XAMPP Control Panel to check the server status.', 5, '2024-07-05 10:51:35.000000'),
+(3, 'tes1', 'tes11', 4, '2024-07-07 08:36:34.000000'),
+(4, 'tes2', 'tes22', 3, '2024-07-07 08:40:57.000000');
 
 -- --------------------------------------------------------
 
@@ -400,6 +427,12 @@ ALTER TABLE `revenue`
   ADD PRIMARY KEY (`order_id`);
 
 --
+-- Indeks untuk tabel `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -449,7 +482,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT untuk tabel `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `purchase`
@@ -468,6 +501,12 @@ ALTER TABLE `purchase_products`
 --
 ALTER TABLE `revenue`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT untuk tabel `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
