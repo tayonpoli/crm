@@ -73,7 +73,7 @@ Our commitment to superior coffee quality has been recognized through various be
     <section class="section__container special__container" id="special">
       <img style="max-width: 45px; max-height: 45px; margin-inline: auto;" src="assets/logoo.png" alt="logoo" />
       <br>
-      <h2 class="section__header">Explore the recent products</h2>
+      <h2 class="section__header">Explore The Recent Products</h2>
       <p class="section__description">
         Our selectable drink options, including classic espresso choices, house specialties, fruit smoothies, and frozen treats.
       </p>
@@ -100,7 +100,7 @@ Our commitment to superior coffee quality has been recognized through various be
     </section>
 
     <section class="section__container special__container">
-      <h2 class="section__header">Explore our special offers</h2>
+      <h2 class="section__header">Explore Our Special Offers</h2>
       <p class="section__description">
       Our selectable drink options, including classic espresso choices, house specialties, fruit smoothies, and frozen treats.
       </p>
@@ -113,7 +113,7 @@ Our commitment to superior coffee quality has been recognized through various be
 
             <div class="offer__card">
               <img src="upload/<?php echo $result['image'] ?>" alt="..."><br>
-              <p class="price"><?php echo $result['event'] ?></p>
+              <p class="event"><?php echo $result['event'] ?></p>
                 <h4><?php echo $result['name'] ?></h4>
                <p class="beforee">Rp. <?php echo number_format($result['discount']); ?></p>
                <p class="after">Rp. <?php echo number_format($result['price']); ?></p><br>
@@ -172,7 +172,7 @@ Our commitment to superior coffee quality has been recognized through various be
     </section>
 
     <section class="section__container client__container" id="client">
-      <h2 class="section__header">Review from the experts</h2>
+      <h2 class="section__header">Review From The Experts</h2>
       <p class="section__description">
       Some reviews about experience in ngopss by our customers who are also professionals in the coffee industry.
       </p>

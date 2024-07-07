@@ -15,13 +15,21 @@ if(isset($_POST['add_product'])){
    $name = mysqli_real_escape_string($conn, $_POST['name']);
    $type = mysqli_real_escape_string($conn, $_POST['type']);
    $price = $_POST['price'];
-   $point = $_POST['point'];
+   $point = $_POST['poin'];
    $image = $_FILES['image']['name'];
    $image_size = $_FILES['image']['size'];
    $event = mysqli_real_escape_string($conn, $_POST['event']);
    $discount = $_POST['discount'];
    $image_tmp_name = $_FILES['image']['tmp_name'];
    $image_folder = 'ngopss/upload/'.$image;
+
+   if (empty($discount)) {
+      $discount = 0;
+  }
+
+  if (empty($point)) {
+   $point = 0;
+}
 
    $select_product_name = mysqli_query($conn, "SELECT name FROM `products` WHERE name = '$name'") or die('query failed');
 
@@ -130,7 +138,7 @@ if(isset($_POST['update_product'])){
       <input type="text" name="name" class="box" placeholder="enter product name" required>
       <input type="text" name="type" class="box" placeholder="enter product type" required>
       <input type="number" min="0" name="price" class="box" placeholder="enter product price" required>
-      <input type="number" min="0" name="point" class="box" placeholder="enter product point" required>
+      <input type="number" min="0" name="poin" class="box" placeholder="enter product point">
       <input type="number" min="0" name="discount" class="box" placeholder="enter offer price before (optional)">
       <input type="text" name="event" class="box" placeholder="enter event name (optional)">
       <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box" required>

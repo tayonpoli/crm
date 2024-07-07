@@ -43,7 +43,7 @@ include('koneksi.php');
     <?php include 'navbar.php'; ?>
 
     <section class="section__container special__container" id="special">
-      <h2 class="section__header">Popular menu</h2>
+      <h2 class="section__header">Popular Menu</h2>
       <p class="section__description">
       Here’s our Popular menu this Mounth
       </p>
@@ -101,7 +101,7 @@ include('koneksi.php');
     <section class="section__container special__container" id="special">
     <img style="max-width: 45px; max-height: 45px; margin-inline: auto;" src="assets/logoo.png" alt="logoo" />
       <br>
-      <h2 class="section__header">Non-coffee</h2>
+      <h2 class="section__header">Non-Coffee</h2>
       <p class="section__description">
       Our selectable drink options, including classic espresso choices, house specialties, fruit smoothies, and frozen treats.
       </p>

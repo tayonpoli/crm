@@ -20,6 +20,7 @@
         <li><a href="offer.php">Offer</a></li>
         <li><a href="rewards.php">Rewards</a></li>
         <li><a href="about.php">About</a></li>
+        <li><a href="save_review.php">Review</a></li>
       </ul>
       <div class="nav__btn">
        <h2 style="font-size: 1.2rem"><?php echo $poin; ?><span><i class="ri-copper-coin-fill" style="font-size: 1.4rem; color: #F0BB40"></i></span></h2>

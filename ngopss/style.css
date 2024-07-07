@@ -18,6 +18,10 @@
   box-sizing: border-box;
 }
 
+.p4{
+  padding: 4rem 1rem !important;
+}
+
 .section__container {
   max-width: var(--max-width);
   margin: auto;
@@ -31,6 +35,20 @@
   line-height: 3rem;
   color: var(--text-dark);
   text-align: center;
+}
+
+.section__event {
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 3rem;
+  text-align: center;
+  border: 1px solid;
+  width: fit-content;
+  padding: 0.5rem 2rem;
+  border-radius: 4rem;
+  background-color: black;
+  color: white;
 }
 
 .section__button {
@@ -200,12 +218,12 @@ nav {
   text-align: center;
 }
 
-.special__container :is(.section__header, .section__description, .section__button) {
+.special__container :is(.section__header, .section__description, .section__button, .section__event) {
   max-width: 1440px;
   margin-inline: auto;
 }
 
-.offer__container :is(.section__header, .section__description) {
+.offer__container :is(.section__header, .section__description, .section__event) {
   max-width: 1200px;
   margin-inline: auto;
 }
@@ -348,6 +366,19 @@ nav {
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--text-dark);
+}
+
+.offer__card .event {
+  border: 1px solid #e64c5c;
+  background-color: #e64c5c;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  margin-left: -2rem;
+  padding: 0.2rem 1rem;
+  width: fit-content;
+  border-radius: 0px 1rem 1rem 0px;
+  margin-bottom: 1rem;
 }
 
 .offer__card {
